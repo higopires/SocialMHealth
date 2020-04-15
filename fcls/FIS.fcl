@@ -1,0 +1,54 @@
+
+FUNCTION_BLOCK drift	// Block definition (there may be more than one block per file)
+
+VAR_INPUT				// Define input variables
+	similarity : REAL;
+	sensibility : REAL;
+END_VAR
+
+VAR_OUTPUT				// Define output variable
+	drift : REAL;
+END_VAR
+
+FUZZIFY sensibility			// Fuzzify input variable 'sensibility': {low' , 'moderate', 'high'}
+	TERM low := (0, 1) (25, 1) (50, 0) ;
+	TERM moderate := (25, 0) (50,1) (75, 0);
+	TERM high := (50, 0) (75, 1) (100, 1);
+END_FUZZIFY
+
+FUZZIFY similarity			// Fuzzify input variable 'similarity': {'low', 'moderate' , 'high'}
+	TERM low := (0, 1) (40, 1) (50, 0) ;
+	TERM moderate := (40, 0) (50,1) (60, 0);
+	TERM high := (50, 0) (60, 1) (100, 1);
+END_FUZZIFY
+
+DEFUZZIFY drift
+	TERM  no_change := (0, 1) (50, 1) (65, 0) ;
+    TERM  moderate_change := (50, 0) (65, 1) (80, 0) ;
+    TERM change := (65, 0) (80, 1) (100,1);
+
+	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
+	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
+END_DEFUZZIFY
+
+RULEBLOCK No1
+	AND : MIN;			// Use 'min' for 'and' (also implicit use 'max' for 'or' to fulfill DeMorgan's Law)
+	ACT : MIN;			// Use 'min' activation method
+	ACCU : MAX;			// Use 'max' accumulation method
+
+    RULE 1 : IF sensibility IS low AND similarity IS low THEN drift IS change;
+	RULE 2 : IF sensibility IS low AND similarity IS moderate THEN drift IS no_change;
+	RULE 3 : IF sensibility IS low AND similarity IS high THEN drift IS no_change;
+
+    RULE 4 : IF sensibility IS moderate AND similarity IS low THEN drift IS change;
+	RULE 5 : IF sensibility IS moderate AND similarity IS moderate THEN drift IS moderate_change;
+	RULE 6 : IF sensibility IS moderate AND similarity IS high THEN drift IS no_change;
+
+    RULE 7 : IF sensibility IS high AND similarity IS low THEN drift IS change;
+	RULE 8 : IF sensibility IS high AND similarity IS moderate THEN drift IS change;
+	RULE 9 : IF sensibility IS high AND similarity IS high THEN drift IS no_change;
+
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+

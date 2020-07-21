@@ -12,7 +12,7 @@
     </parent>
 
     <groupId>com.lsdi.social.mhealth</groupId>
-    <artifactId>Social mHealth</artifactId>
+    <artifactId>SocialMHealth</artifactId>
     <version>1.0-SNAPSHOT</version>
     <description>Projeto Monitoramento Pervasivo da Saúde Mental</description>
 
@@ -144,6 +144,14 @@
             <artifactId>moa</artifactId>
             <version>2019.05.0</version>
         </dependency>
+        
+        <dependency>
+    		<groupId>net.sourceforge.jFuzzyLogic</groupId>
+    		<artifactId>jFuzzyLogic</artifactId>
+    		<scope>system</scope>
+    		<systemPath>C:\Users\Higo Felipe\git\SocialMHealth\src\libs\jFuzzyLogic_core.jar</systemPath>
+    		<version>2.0.7</version>
+	</dependency>
 
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -155,47 +163,10 @@
     <build>
         <defaultGoal>install</defaultGoal>
         <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>com.lsdi.social.mhealth.Start</mainClass>
-                    <includePluginDependencies>false</includePluginDependencies>
-                    <arguments>
-                        <argument>10000</argument>
-                    </arguments>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.4</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <mainClass>com.lsdi.social.mhealth.Start</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>8</source>
-                    <target>8</target>
-                </configuration>
-            </plugin>
-
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin>
         </plugins>
     </build>
 

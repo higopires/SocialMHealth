@@ -58,7 +58,7 @@ public class ChangeBehaviorListener implements UpdateListener {
 
         //grava o primeiro padrão social
         if (countPattern <2){
-            ExtractPatternUtil.writePattern(sociabilityPatterns, context, "patternsHistory\\currentPattern.json");
+            ExtractPatternUtil.writePattern(sociabilityPatterns, context, "/SocialMHealth/patternsHistory/currentPattern.json");
             //Publica o padrão identificado
             Date actualDate = eventHandler.getActualDate();
             NotifyNewPattern notifyNewPattern = new NotifyNewPattern(
@@ -119,7 +119,7 @@ public class ChangeBehaviorListener implements UpdateListener {
             //verifica se houve mudança e extrai e publica um novo padrão
             if (isChange(changeValue, moderateValue, noChangeValue)) {
 
-                ExtractPatternUtil.writePattern(sociabilityPatterns, context, "patternsHistory\\currentPattern.json");
+                ExtractPatternUtil.writePattern(sociabilityPatterns, context, "/SocialMHealth/patternsHistory/currentPattern.json");
 
                 //Publica o padrão identificado
                 Date actualDate = eventHandler.getActualDate();
@@ -157,7 +157,7 @@ public class ChangeBehaviorListener implements UpdateListener {
     //calcula a similaridade entre o padrão encontrado e o antigo
     private double getSimilarity(List<List<Integer>> actualPattern){
         //String oldPath = "week"+(countPattern-1);
-        List<List<Integer>> oldPattern = FileUtil.getCurrentPattern("patternsHistory\\currentPattern.json").get(context);
+        List<List<Integer>> oldPattern = FileUtil.getCurrentPattern("/SocialMHealth/patternsHistory/currentPattern.json").get(context);
         HashMap<Integer, Boolean> actualPatternBool = FileUtil.patternToBoolean(actualPattern);
         HashMap<Integer, Boolean> oldPatternBool = FileUtil.patternToBoolean(oldPattern);
         double countIntersection = 0;

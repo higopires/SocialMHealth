@@ -59,7 +59,7 @@ public class AbnormalBehaviorListener implements UpdateListener {
             e.printStackTrace();
         }
         // Salva o padrão de sociabilidade reconhecido
-        List<List<Integer>> currentPattern = FileUtil.getCurrentPattern("/SocialMHealth/patternsHistory/currentPattern.json").get(context);
+        List<List<Integer>> currentPattern = FileUtil.getCurrentPattern("C:\\Users\\Higo Felipe\\git\\SocialMHealth\\patternsHistory\\currentPattern.json").get(context);
 
         if (currentPattern != null) {
             detectDrift(sociabilityPatterns, currentPattern);
